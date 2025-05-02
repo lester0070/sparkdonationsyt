@@ -78,8 +78,8 @@
 </head>
 <body>
 
-  <!-- Logo Placeholder -->
-  <img src="spark logo.png" alt="Channel Logo" class="logo">
+  <!-- Your Channel Logo -->
+  <img src="logo.png" alt="Channel Logo" class="logo">
 
   <h1>Support the Stream</h1>
   <p>Donate using any UPI app (Google Pay, PhonePe, etc.)</p>
@@ -88,27 +88,30 @@
     <input type="text" name="name" placeholder="Your Name"><br>
     <input type="number" name="amount" placeholder="Amount (₹)" required><br>
     <textarea name="message" placeholder="Your Message (optional)" rows="3"></textarea><br>
-    <button type="submit">Donate</button>
+    <a id="donateBtn" href="#" target="_blank">
+      <button type="submit">Donate</button>
+    </a>
   </form>
 
   <p><strong>Or scan to pay:</strong></p>
-  <img class="qr" src="Qrcode.jpeg" alt="Scan to Pay UPI">
+  <img class="qr" src="scanner.jpg" alt="Scan to Pay UPI">
 
   <script>
     document.getElementById('donationForm').addEventListener('submit', function (e) {
       e.preventDefault();
+
       const upiID = "lesterpereira88@oksbi";
       const name = encodeURIComponent(this.name.value.trim() || "Donor");
       const amount = encodeURIComponent(this.amount.value.trim());
       const message = encodeURIComponent(this.message.value.trim());
 
       const upiLink = `upi://pay?pa=${upiID}&pn=${name}&am=${amount}&cu=INR&tn=${message}`;
-      
-      // Redirect to the Thank You page
-      window.location.href = "thank-you.html";
+      document.getElementById('donateBtn').href = upiLink;
 
-      // Open UPI link for payment
-      window.location.href = upiLink;
+      // Simulate click to open UPI app
+      setTimeout(() => {
+        window.location.href = "thankyou.html"; // fallback thank you page
+      }, 2000); // delay to allow UPI app to open
     });
   </script>
 
